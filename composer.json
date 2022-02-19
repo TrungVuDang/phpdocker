@@ -1,0 +1,20 @@
+{
+    "name": "trungvu/phpdocker4dev",
+    "description": "Docker for php developer (LEMP), 1 for all projects in local",
+    "type": "project",
+    "require": {
+        "laravel/sail": "^1.13"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Trungvu\\Phpdocker4dev\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Trung Vu",
+            "email": "trung.vudang@gmail.com"
+        }
+    ]
+}
