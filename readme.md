@@ -16,18 +16,18 @@ extend it a little
 
 ## Setup
 - Install [Docker desktop](https://docs.docker.com/desktop/) on your computer
-- Install [Composer](https://getcomposer.org/download/)
+- This project build base on Laravel Sail, but it's NOT necessary to install Composer & Laravel Sail
 - Download or clone code from this repository
 - Copy ".env.example" to ".env" file
 - Update new ".env" file
   - "SOURCE_DIRECTORY": path to your projects folder
-- Run ```composer install``` to install libraries
 - Depend on what you need, there are 3 version, which provides:
   - ```docker-composer.mini.yml```: web server (nginx + php) & mariadb
   - ```docker-composer.laravel.yml```: web server (nginx + php), mariadb & redis
   - ```docker-composer.full.yml```: web server (nginx + php), mariadb, redis, meilisearch & mailhog
   - ```docker-composer.yml```: same as full
   - Let copy content from the version you want and replace in ```docker-composer.yml```
+- If you run this project on Windows, there are some notes at the bottom   
 
 ## Commands
 1. Go to this folder
@@ -146,3 +146,12 @@ Or just restart nginx
 - MacOS: you may need to trust the self-sign certificate in container 
   - Download certificate from
   - Update trust certificate [search by Google](https://www.google.com/search?q=macos+trust+self+signed+certificate)
+
+## Some notice for Windows:
+- It requires [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), so let install WSL2 or WSL on your windows first
+- Let install ```Ubuntu 20.04``` on WSL, or any linux distro you like
+- On ```Ubuntu 20.04``` terminal 
+  - Let install ```dos4unix```, it would help reformat files to unix format, you will need it after edit nginx config files, or docker-compose.yml file
+    - Install: ```sudo apt-get install dos2unix```
+    - Reformat file after edit: ```dos2unix docker-compose.yml```, or ```docker2unix nginx/[config-file]```
+- On first run after build, nginx may not work properly, let restart it by ```./sail restart``` 
