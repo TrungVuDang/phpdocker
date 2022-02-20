@@ -150,8 +150,19 @@ Or just restart nginx
 ## Some notice for Windows:
 - It requires [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), so let install WSL2 or WSL on your windows first
 - Let install ```Ubuntu 20.04``` on WSL, or any linux distro you like
-- On ```Ubuntu 20.04``` terminal 
-  - Let install ```dos4unix```, it would help reformat files to unix format, you will need it after edit nginx config files, or docker-compose.yml file
-    - Install: ```sudo apt-get install dos2unix```
-    - Reformat file after edit: ```dos2unix docker-compose.yml```, or ```docker2unix nginx/[config-file]```
+  - On ```Ubuntu 20.04``` terminal 
+    - Let install ```dos4unix```, it would help reformat files to unix format, you will need it after edit nginx config files, or docker-compose.yml file
+      - Install: ```sudo apt-get install dos2unix```
+      - Reformat for files
+      ```shell
+      dos2unix sail
+      dos2unix docker-compose.yml
+      dos2unix src/app/Dockerfile
+      dos2unix src/app/start-container
+      dos2unix src/app/supervisor.conf
+      dos2unix src/app/nginx-default
+      dos2unix nginx/default
+      ```
+
+      - Reformat file after edit: ```dos2unix docker-compose.yml```, or ```docker2unix nginx/[config-file]```
 - On first run after build, nginx may not work properly, let restart it by ```./sail restart``` 
