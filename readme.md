@@ -144,7 +144,7 @@ Or just restart nginx
 - Uncomment 3 lines which config for https and restart nginx
 - Add exception if browser show warning
 - MacOS: you may need to trust the self-sign certificate in container 
-  - Download certificate from
+  - Download certificate from [http://localhost/nginx-selfsigned.crt](http://localhost/nginx-selfsigned.crt)
   - Update trust certificate [search by Google](https://www.google.com/search?q=macos+trust+self+signed+certificate)
 
 ## Some notice for Windows:

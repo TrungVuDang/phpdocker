@@ -20,7 +20,7 @@ services:
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
         volumes:
             - './nginx:/etc/nginx/sites-available'
-            - '${SOURCE_DIRECTORY:-"."}:/home/sail'
+            - '${SOURCE_DIRECTORY:-"."}:/home/sail/www'
         networks:
             - sail
         depends_on:
