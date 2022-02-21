@@ -5,7 +5,7 @@ LABEL maintainer="Trung Vu"
 ARG WWWGROUP
 ARG NODE_VERSION=16
 
-WORKDIR /home/sail
+WORKDIR /home/sail/www
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=UTC
@@ -24,6 +24,15 @@ RUN apt-get update \
     && apt-get update \
     && mkdir /run/php \
     && apt-get install -y nginx \
+        php7.1-cli php7.1-dev php7.1-fpm \
+        php7.1-pgsql php7.1-sqlite3 php7.1-gd \
+        php7.1-curl php7.1-memcached \
+        php7.1-imap php7.1-mysql php7.1-mbstring \
+        php7.1-xml php7.1-zip php7.1-bcmath php7.1-soap \
+        php7.1-intl php7.1-readline php7.1-pcov \
+        php7.1-msgpack php7.1-igbinary php7.1-ldap \
+        php7.1-redis php7.1-xdebug \
+        \
         php7.4-cli php7.4-dev php7.4-fpm \
         php7.4-pgsql php7.4-sqlite3 php7.4-gd \
         php7.4-curl php7.4-memcached \
@@ -77,9 +86,12 @@ RUN openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=Company, Inc./CN=myd
     -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
     && cp /etc/ssl/certs/nginx-selfsigned.crt /var/www/html/;
 
+RUN sed -i 's/^#force_color_prompt.*$/force_color_prompt=yes/g' /root/.bashrc
+
 COPY nginx-default /etc/nginx/sites-available/default
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY php71.ini /etc/php/7.1/cli/conf.d/99-sail.ini
 COPY php74.ini /etc/php/7.4/cli/conf.d/99-sail.ini
 COPY php80.ini /etc/php/8.0/cli/conf.d/99-sail.ini
 COPY php81.ini /etc/php/8.1/cli/conf.d/99-sail.ini

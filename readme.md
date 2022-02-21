@@ -2,7 +2,7 @@
 
 This project help to set up a local developing environment for php developer with
 - Nginx
-- PHP: 7.4, 8.0, 8.1
+- PHP: 7.1, 7.4, 8.0, 8.1
 - MariaDB
 - Redis
 - Meilisearch
@@ -20,7 +20,7 @@ extend it a little
 - Download or clone code from this repository
 - Copy ".env.example" to ".env" file
 - Update new ".env" file
-  - "SOURCE_DIRECTORY": path to your projects folder
+  - "SOURCE_DIRECTORY": path to your projects folder, it would be map to ```/home/sail/www``` in container
 - Depend on what you need, there are 3 version, which provides:
   - ```docker-composer.mini.yml```: web server (nginx + php) & mariadb
   - ```docker-composer.laravel.yml```: web server (nginx + php), mariadb & redis
@@ -99,8 +99,8 @@ Ex: You want to set up a php project name "laravelrock" with domain name "larave
 server {
     listen 80;
 
-    root /home/sail/laravelrock;
-    # Should be "root /home/sail/laravelrock/public" if it is Laravel project
+    root /home/sail/www/laravelrock;
+    # Should be "root /home/sail/www/laravelrock/public" if it is Laravel project
     
     # For HTTPS, if you want to support https uncomment 3 lines below
     # listen 443 ssl;
