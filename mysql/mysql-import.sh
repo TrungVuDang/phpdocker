@@ -13,7 +13,7 @@ files=`ls $BACKUP_PATH/*.sql`
 for eachfile in $files
 do
    db="$(basename $eachfile | cut -d. -f1)"
-   exist=`mysql -u$USER -p$PASSWORD -e "SHOW DATABASES" | grep $db`
+   exist=`mysql -u$USER -p$PASSWORD -e "SHOW DATABASES" | grep $db | head -1` 
    if [ "$exist" == "$db" ]; then
       echo "Database $db exist"
    else   

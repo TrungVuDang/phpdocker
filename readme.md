@@ -166,3 +166,4 @@ Or just restart nginx
 
       - Reformat file after edit: ```dos2unix docker-compose.yml```, or ```docker2unix nginx/[config-file]```
 - On first run after build, nginx may not work properly, let restart it by ```./sail restart``` 
+
