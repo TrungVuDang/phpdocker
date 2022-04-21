@@ -21,6 +21,7 @@ extend it a little
 - Copy ".env.example" to ".env" file
 - Update new ".env" file
   - "SOURCE_DIRECTORY": path to your projects folder, it would be map to ```/home/sail/www``` in container
+  - If you change DB_USERNAME and DB_PASSWORD, please update it in mysql/mysql-import.sh & mysql/mysql-backup.sh
 - Depend on what you need, there are 3 version, which provides:
   - ```docker-composer.mini.yml```: web server (nginx + php) & mariadb
   - ```docker-composer.laravel.yml```: web server (nginx + php), mariadb & redis
@@ -97,6 +98,7 @@ Ex: You want to set up a php project name "laravelrock" with domain name "larave
 1. Create new config file in "nginx" folder name "laravelrock"
 ```shell
 server {
+    # Let remove "default_server" from listen ...
     listen 80;
 
     root /home/sail/www/laravelrock;
@@ -166,4 +168,3 @@ Or just restart nginx
 
       - Reformat file after edit: ```dos2unix docker-compose.yml```, or ```docker2unix nginx/[config-file]```
 - On first run after build, nginx may not work properly, let restart it by ```./sail restart``` 
-
