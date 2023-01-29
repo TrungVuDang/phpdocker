@@ -2,7 +2,7 @@
 
 This project help to set up a local developing environment for php developer with
 - Nginx
-- PHP: 7.1, 7.4, 8.0, 8.1
+- PHP: 7.1, 7.4, 8.0, 8.1, 8.2
 - MariaDB
 - Redis
 - Meilisearch

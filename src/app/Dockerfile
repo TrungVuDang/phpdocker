@@ -1,9 +1,10 @@
-FROM ubuntu:20.04
+FROM --platform=linux/amd64 ubuntu:22.04 as stage-amd64
+FROM --platform=linux/arm64 arm64v8/ubuntu:jammy as stage-arm64
 
 LABEL maintainer="Trung Vu"
 
 ARG WWWGROUP
-ARG NODE_VERSION=16
+ARG NODE_VERSION=18
 
 WORKDIR /home/sail/www
 
@@ -59,13 +60,33 @@ RUN apt-get update \
         php8.1-intl php8.1-readline \
         php8.1-ldap \
         php8.1-msgpack php8.1-igbinary php8.1-redis php8.1-swoole \
-        php8.1-memcached php8.1-pcov php8.1-xdebug
+        php8.1-memcached php8.1-pcov php8.1-xdebug \
+        \
+        php8.2-cli php8.2-dev php8.2-fpm \
+        php8.2-pgsql php8.2-sqlite3 php8.2-gd \
+        php8.2-curl \
+        php8.2-imap php8.2-mysql php8.2-mbstring \
+        php8.2-xml php8.2-zip php8.2-bcmath php8.2-soap \
+        php8.2-intl php8.2-readline \
+        php8.2-ldap \
+        php8.2-msgpack php8.2-igbinary php8.2-redis php8.2-swoole \
+        php8.2-memcached php8.2-pcov php8.2-xdebug
 
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
-    
+
+# RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
+#     && . ~/.nvm/nvm.sh \
+#     && nvm install node \
+#     && nvm alias default node \
+#     && nvm use default
+
 RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
 
 RUN apt-get install -y mysql-client \
     && apt-get install -y postgresql-client \
@@ -101,11 +122,13 @@ COPY php72.ini /etc/php/7.2/cli/conf.d/99-sail.ini
 COPY php74.ini /etc/php/7.4/cli/conf.d/99-sail.ini
 COPY php80.ini /etc/php/8.0/cli/conf.d/99-sail.ini
 COPY php81.ini /etc/php/8.1/cli/conf.d/99-sail.ini
+COPY php82.ini /etc/php/8.2/cli/conf.d/99-sail.ini
 
 COPY xdebug.ini /etc/php/7.2/cli/conf.d/20-xdebug.ini
 COPY xdebug.ini /etc/php/7.4/cli/conf.d/20-xdebug.ini
 COPY xdebug.ini /etc/php/8.0/cli/conf.d/20-xdebug.ini
 COPY xdebug.ini /etc/php/8.1/cli/conf.d/20-xdebug.ini
+COPY xdebug.ini /etc/php/8.2/cli/conf.d/20-xdebug.ini
 
 COPY index.php /var/www/html
 
